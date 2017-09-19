@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    <ion-title>Login</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <form #loginForm="ngForm" novalidate>
+    
+    <ion-list>
+      <ion-item>
+        <p class="icon-wrap">
+          <ion-icon name="person"></ion-icon>
+        </p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Username</ion-label>
+        <ion-input type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Password</ion-label>
+        <ion-input type="password"></ion-input>
+      </ion-item>
+
+    </ion-list>
+
+    <div padding>
+      <button ion-button color="primary" (click)="onLogin(loginForm)" type="submit" block>Login</button>
+    </div>
+
+  </form>
+
+</ion-content>
