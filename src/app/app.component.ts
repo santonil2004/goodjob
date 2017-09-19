@@ -5,6 +5,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { InnerPage } from '../pages/inner/inner';
+import { UsersPage } from '../pages/users/users';
+import { WorkPage } from '../pages/work/work';
+import { MonitorPage } from '../pages/monitor/monitor';
+import { RosterPage } from '../pages/roster/roster';
+
 
 @Component({
   templateUrl: 'app.html'
