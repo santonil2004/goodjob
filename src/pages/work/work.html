@@ -1,0 +1,17 @@
+<ion-header>
+        <ion-navbar>
+          <ion-title>WelCome, John Doe</ion-title>
+        </ion-navbar>
+      </ion-header>
+<ion-content padding center text-center class="vertical-align-content">
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <h1>{{workLabel}}</h1>
+                <button ion-button round block  (click)="toggleWorking()" [ngStyle]="{'background-color': buttonColor}">
+                    <ion-icon ios="ios-power" md="md-power"></ion-icon>
+                </button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
