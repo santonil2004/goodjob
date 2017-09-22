@@ -1,7 +1,9 @@
+import { UsersProvider } from './../providers/users/users';
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Events, Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Storage } from '@ionic/storage';
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
@@ -13,9 +15,11 @@ import { MonitorPage } from '../pages/monitor/monitor';
 import { RosterPage } from '../pages/roster/roster';
 
 
+
 @Component({
   templateUrl: 'app.html'
 })
+
 
 
 
@@ -24,19 +28,46 @@ export class MyApp {
 
   rootPage: any = HomePage;
 
-  pages: Array<{title: string, component: any, icon: string}>;
+  pages: Array<{title: string, component: any, icon: string, logsOut?: boolean}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private storage: Storage, public usersProvider: UsersProvider, public events: Events) {
     this.initializeApp();
 
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Home', component: HomePage, icon: 'home' },
-      { title: 'Message', component: MessagePage, icon: 'mail'},
-      { title: 'Login', component: LoginPage, icon: 'person'},
+    this.usersProvider.hasLoggedIn().then((hasLoggedIn) => {
+      this.loadMenu(hasLoggedIn);
+    });
 
-    ];
+    this.listenToLoginEvents();
 
+  }
+
+
+  listenToLoginEvents() {
+    this.events.subscribe('user:login', () => {
+      this.loadMenu(true);
+    });
+
+    this.events.subscribe('user:logout', () => {
+      this.loadMenu(false);
+    });
+  }
+
+  loadMenu(loggedIn: boolean){
+      if(loggedIn){
+                // logged in menu
+                this.pages = [
+                  { title: 'Home', component: HomePage, icon: 'home' },
+                  { title: 'Message', component: MessagePage, icon: 'mail'},
+                  { title: 'Logout', component: LoginPage, icon: 'person', logsOut: true},
+                ];
+    } else {
+                // guest menu
+                this.pages = [
+                  { title: 'Home', component: HomePage, icon: 'home' },
+                  { title: 'Login', component: LoginPage, icon: 'person'},
+                ];
+                
+    }
   }
 
   initializeApp() {
@@ -49,6 +80,11 @@ export class MyApp {
   }
 
   openPage(page) {
+
+    // if page has logsOut=>true
+    if(page.logsOut){
+      this.usersProvider.logout();
+    }
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);

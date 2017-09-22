@@ -1,3 +1,5 @@
+import { UsersProvider } from './../../providers/users/users';
+
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
@@ -17,7 +19,7 @@ export class LoginPage {
   // default object
   login = {username:'', password:''};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public userProvider: UsersProvider) {
   }
 
   onLogin(form: NgForm) {
@@ -26,11 +28,14 @@ export class LoginPage {
     if (form.valid) {
 
       if(this.login.username=="sanil" && this.login.password=="sanil_123"){
+
+        this.userProvider.login(this.login.username);
         this.navCtrl.push(InnerPage);
         return;
       }
     } 
-      this.showAlert();
+
+    this.showAlert();
     
   }
 
