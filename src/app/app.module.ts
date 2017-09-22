@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { MessagePage } from '../pages/message/message';
 import { LoginPage } from '../pages/login/login';
 import { InnerPage } from '../pages/inner/inner';
 import { UsersPage } from '../pages/users/users';
@@ -17,6 +18,7 @@ import { RosterPage } from '../pages/roster/roster';
   declarations: [
     MyApp,
     HomePage,
+    MessagePage,
     LoginPage,
     InnerPage,
     UsersPage,
@@ -33,6 +35,7 @@ import { RosterPage } from '../pages/roster/roster';
   entryComponents: [
     MyApp,
     HomePage,
+    MessagePage,
     LoginPage,
     InnerPage,
     UsersPage,
